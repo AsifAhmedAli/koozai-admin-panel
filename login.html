@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Koozai   Login</title>
+  <!-- Custom fonts for this template-->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
+  <!-- Custom styles for this template-->
+  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+
+  <!-- loading spinner -->
+
+  <div id="loadingSpinner" class="loader-container d-none">
+    <span class="loader"></span>
+  </div>
+
+<body class="bg-gradient-primary">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xl-10 col-lg-12 col-md-9">
+        <div class="card o-hidden border-0 shadow-lg my-5">
+          <div class="card-body p-0">
+            <div class="row">
+              <div class="col-lg-6 mx-auto">
+                <div class="ml-5 mt-5 mr-5">
+                  <img src="./assets/images/koozai-logo.jpeg" alt="" style="width: 70%;">
+                </div>
+                <div class="p-5">
+                  <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">Welcome Admin</h1>
+                  </div>
+                  <form class="user" id="loginForm">
+                    <div class="form-group">
+                      <input type="text" class="form-control form-control-user" name="identifier" id="inputEmail"
+                        aria-describedby="emailHelp" placeholder="Enter user name of Phone...">
+                    </div>
+                    <div class="form-group">
+                      <input type="password" class="form-control form-control-user" name="password" id="inputPassword"
+                        placeholder="Password">
+                    </div>
+                    <button id="login-button" class="btn btn-primary btn-user btn-block">Login</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    <!-- model for success and error messages -->
+    <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true" >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-white w-auto mx-auto">
+          <div class="modal-body show_message bg-dark text-center">
+            <p id="messageContent" class="text-center mt-3"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- base url file -->
+    <script src="./js/all.js"></script>
+      
+
+  <!-- Bootstrap core JavaScript-->
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin-2.min.js"></script>
+    
+    <script src="./js/auth.js"></script>
+
+ 
+
+
+  
+</body>
+
+</html>
