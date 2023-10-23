@@ -1,238 +1,4 @@
 
-// // Function to show the loading spinner
-// function showLoader() {
-//     $('#loadingSpinner').removeClass('d-none');
-// }
-
-// // Function to hide the loading spinner
-// function hideLoader() {
-//     $('#loadingSpinner').addClass('d-none');
-// }
-
-// // Function to show a message in the message modal
-// function showMessageModal(message, isError) {
-//     const modal = $('#messageModal');
-//     const modalContent = modal.find('.modal-content');
-//     const messageContent = $('#messageContent');
-
-//     // Set the message and style based on whether it's an error or success
-//     messageContent.text(message);
-//     if (isError) {
-//         modalContent.removeClass('bg-success').addClass('bg-danger');
-//     } else {
-//         modalContent.removeClass('bg-danger').addClass('bg-success');
-//     }
-
-//     modal.modal('show');
-//     setTimeout(function () {
-//         modal.modal('hide');
-//     }, 2000); // Hide the modal after 2 seconds
-// }
-
-// // Function to load products
-// function loadProducts() {
-//     showLoader(); // Show the loader while loading products
-//     const token = localStorage.getItem("admin_token");
-//     // Initialize DataTable
-//     const dataTable = $('#productTable').DataTable();
-
-//     $.ajax({
-//         url: 'http://localhost:5000/api/admin/get-all-products',
-//         method: 'GET',
-//         headers: {
-//             Authorization: `Bearer ${token}`,
-//         },
-//         success: function (data) {
-//             hideLoader(); // Hide the loader on success
-//             // Clear existing rows
-//             dataTable.clear();
-
-//             // Populate DataTable with products
-//             data.products.forEach(function (product) {
-//                 // Add Edit and Delete buttons to the last column
-//                 // const editButton = '<button class="btn btn-warning edit-product" data-id="' + product.product_id + '">Edit</button>';
-//                 // const deleteButton = '<button class="btn btn-danger delete-product" data-id="' + product.product_id + '">Delete</button>';
-//                 const editButton = `<button class="btn btn-warning edit-product" data-id="${product.product_id}">Edit</button>`;
-//                 const deleteButton = `<button class="btn btn-danger delete-product" data-id="${product.product_id}">Delete</button>`;
-//                 const buttonsHtml = `
-//                     <div class="d-flex">
-//                         <div class="">${editButton}</div>
-//                         <div class=" ml-1">${deleteButton}</div>
-//                     </div>
-//                 `;
-
-//                 const hasImage = product.product_image_url ? true : false;
-
-//                 // Generate the image HTML or "No Image" text accordingly
-//                 const imageHtml = hasImage
-//                     ? `<img src="${product.product_image_url}" alt="${product.product_name}" class="rounded-circle" width="50" height="50">`
-//                     : "No Image";
-
-
-//                 dataTable.row.add([
-//                     imageHtml,
-//                     product.product_name,
-//                     product.product_description,
-//                     product.product_price,
-//                     buttonsHtml
-//                 ]).draw();
-//             });
-//         },
-//         error: function (error) {
-//             hideLoader(); // Hide the loader on error
-//             $('#errorMessage').text('Error loading products.');
-//             console.error(error);
-//         }
-//     });
-// }
-
-// // Load products when the page loads
-// loadProducts();
-
-// // Handle delete product button clicks
-// $('#productTable tbody').on('click', '.delete-product', function () {
-//     const productId = $(this).data('id');
-//     // Show the delete confirmation modal
-//     $('#deleteConfirmationModal').modal('show');
-
-//     // Handle the confirmation of deletion
-//     $('#confirmDeleteBtn').click(function () {
-//         const token = localStorage.getItem("admin_token");
-//         $.ajax({
-//             url: `http://localhost:5000/api/admin/delete-product/${productId}`,
-//             method: 'DELETE',
-//             headers: {
-//                 Authorization: `Bearer ${token}`,
-//             },
-//             success: function () {
-//                 // Close the delete confirmation modal
-//                 $('#deleteConfirmationModal').modal('hide');
-//                 // Reload the products to update the DataTable
-//                 loadProducts();
-//                 showMessageModal('Product deleted successfully!', false);
-//             },
-//             error: function (error) {
-//                 $('#deleteConfirmationModal').modal('hide');
-//                 showMessageModal('Error deleting the product. Please try again.', true);
-//                 console.error(error);
-//             }
-//         });
-//     });
-// });
-
-// // Handle edit product button clicks
-// $('#productTable tbody').on('click', '.edit-product', function () {
-//     const productId = $(this).data('id');
-//     const token = localStorage.getItem("admin_token");
-
-//     // Fetch the product details by productId
-//     $.ajax({
-//         url: `http://localhost:5000/api/admin/get-single-product/${productId}`,
-//         method: 'GET',
-//         headers: {
-//             Authorization: `Bearer ${token}`,
-//         },
-//         success: function (product) {
-//             // Open the "Edit Product" modal
-//             $('#editProductModal').modal('show');
-//             // Pre-fill the modal fields with fetched product details
-//             $('#editProductId').val(product.product_id);
-//             $('#editProductName').val(product.product_name);
-//             $('#editProductDescription').val(product.product_description);
-//             $('#editProductPrice').val(product.product_price);
-//             // Set the image preview
-//             $('#editProductImagePreview').attr('src', product.product_image_url);
-//         },
-//         error: function (error) {
-//             console.error(error);
-//             showMessageModal('Error fetching product details. Please try again.', true);
-//         }
-//     });
-// });
-
-// // Handle the form submission to edit a product
-// $('#editProductForm').submit(function (event) {
-//     event.preventDefault();
-
-//     const formData = new FormData(this);
-//     const token = localStorage.getItem("admin_token");
-//     const productId = $('#editProductId').val(); // Get the product ID from the form
-
-//     showLoader(); // Show loader during the API request
-
-//     $.ajax({
-//         url: `http://localhost:5000/api/admin/edit-product/${productId}`, 
-//         method: 'PUT',
-//         headers: {
-//             Authorization: `Bearer ${token}`,
-//         },
-//         data: formData,
-//         contentType: false,
-//         processData: false,
-//         success: function () {
-//             hideLoader(); // Hide loader on success
-//             $('#editProductModal').modal('hide');
-//             // Clear the form fields
-//             $('#editProductForm')[0].reset();
-//             // Reload the products to update the DataTable
-//             loadProducts();
-//             showMessageModal('Product updated successfully!', false);
-//         },
-//         error: function (error) {
-//             hideLoader(); // Hide loader on error
-//             $('#editProductModal').modal('hide');
-//             $('#errorMessage').text('Error updating the product.');
-//             console.error(error);
-//             showMessageModal('Error updating the product. Please try again.', true);
-//         }
-//     });
-// });
-
-
-
-// // Open the Add Product modal when the button is clicked
-// $('#addProductBtn').click(function () {
-//     $('#addProductModal').modal('show');
-// });
-
-// // Handle the form submission to add a product
-// $('#addProductForm').submit(function (event) {
-//     event.preventDefault();
-
-//     const formData = new FormData(this);
-//     const token = localStorage.getItem("admin_token");
-
-//     showLoader(); // Show loader during the API request
-
-//     $.ajax({
-//         url: 'http://localhost:5000/api/admin/add-product',
-//         method: 'POST',
-//         headers: {
-//             Authorization: `Bearer ${token}`,
-//         },
-//         data: formData,
-//         contentType: false,
-//         processData: false,
-//         success: function () {
-//             hideLoader(); // Hide loader on success
-//             $('#addProductModal').modal('hide');
-//             // Clear the form fields
-//             $('#addProductForm')[0].reset();
-//             // Reload the products to update the DataTable
-//             loadProducts();
-//             showMessageModal('Product added successfully!', false);
-//         },
-//         error: function (error) {
-//             hideLoader(); // Hide loader on error
-//             $('#addProductModal').modal('hide');
-//             $('#errorMessage').text('Error adding the product.');
-//             console.error(error);
-//             showMessageModal('Error adding the product. Please try again.', true);
-//         }
-//     });
-// });
-
-
 
 
 
@@ -275,7 +41,7 @@ function loadProducts() {
     const dataTable = $('#productTable').DataTable();
 
     $.ajax({
-        url: 'http://localhost:5000/api/admin/get-all-products',
+        url: `${baseurl}/api/admin/get-all-products`,
         method: 'GET',
         headers: {
             Authorization: `Bearer ${token}`,
@@ -366,7 +132,7 @@ $('#productTable tbody').on('click', '.delete-product', function () {
     $('#confirmDeleteBtn').click(function () {
         const token = localStorage.getItem("admin_token");
         $.ajax({
-            url: `http://localhost:5000/api/admin/delete-product/${productId}`,
+            url: `${baseurl}/api/admin/delete-product/${productId}`,
             method: 'DELETE',
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -394,7 +160,7 @@ $('#productTable tbody').on('click', '.edit-product', function () {
 
     // Fetch the product details by productId
     $.ajax({
-        url: `http://localhost:5000/api/admin/get-single-product/${productId}`,
+        url: `${baseurl}/api/admin/get-single-product/${productId}`,
         method: 'GET',
         headers: {
             Authorization: `Bearer ${token}`,
@@ -428,7 +194,7 @@ $('#editProductForm').submit(function (event) {
     showLoader(); // Show loader during the API request
 
     $.ajax({
-        url: `http://localhost:5000/api/admin/edit-product/${productId}`, 
+        url: `${baseurl}/api/admin/edit-product/${productId}`, 
         method: 'PUT',
         headers: {
             Authorization: `Bearer ${token}`,
@@ -470,7 +236,7 @@ $('#addProductForm').submit(function (event) {
     showLoader(); // Show loader during the API request
 
     $.ajax({
-        url: 'http://localhost:5000/api/admin/add-product',
+        url: `${baseurl}/api/admin/add-product`,
         method: 'POST',
         headers: {
             Authorization: `Bearer ${token}`,
