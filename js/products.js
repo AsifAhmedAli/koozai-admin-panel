@@ -34,9 +34,98 @@ function showMessageModal(message, isError) {
 }
 
 // Function to load products
+// function loadProducts() {
+//     showLoader(); // Show the loader while loading products
+//     const token = localStorage.getItem("admin_token");
+//     // Initialize DataTable
+//     const dataTable = $('#productTable').DataTable();
+
+//     $.ajax({
+//         url: `${baseurl}/api/admin/get-all-products`,
+//         method: 'GET',
+//         headers: {
+//             Authorization: `Bearer ${token}`,
+//         },
+//         success: function (data) {
+
+//             console.log(data)
+//             hideLoader(); // Hide the loader on success
+//             // Clear existing rows
+//             dataTable.clear();
+
+//             // Populate DataTable with products
+//             data.products.forEach(function (product) {
+//                 // Add Edit and Delete buttons to the last column
+//                 const editButton = `<button class="btn btn-warning edit-product" data-id="${product.product_id}">Edit</button>`;
+//                 const deleteButton = `<button class="btn btn-danger delete-product" data-id="${product.product_id}">Delete</button>`;
+//                 const buttonsHtml = `
+//                     <div class="d-flex">
+//                         <div class="">${editButton}</div>
+//                         <div class=" ml-1">${deleteButton}</div>
+//                     </div>
+//                 `;
+
+//                 const hasImage = product.product_image_url ? true : false;
+
+//                 // Generate the image HTML or "No Image" text accordingly
+//                 const imageHtml = hasImage
+//                     ? `<img src="${product.product_image_url}" alt="product image" class="rounded-circle" width="50" height="50">`
+//                     : "No Image";
+
+//                 let descriptionHtml = product.product_description;
+
+//                 // Check if the description has more than 5 words
+//                 const words = descriptionHtml.split(' ');
+//                 if (words.length > 5) {
+//                     const truncatedDescription = words.slice(0, 5).join(' ');
+//                     descriptionHtml = `
+//                         <div class="description">
+//                             <span>${truncatedDescription}</span>
+//                             <span class="read-more">...<a href="#" class="read-more-link">Read More</a></span>
+//                             <span class="read-less d-none">${product.product_description} <a href="#" class="read-less-link">Read Less</a></span>
+//                         </div>
+//                     `;
+//                 }
+
+//                 dataTable.row.add([
+//                     imageHtml,
+//                     product.product_name,
+//                     descriptionHtml,
+//                     product.product_price,
+//                     buttonsHtml
+//                 ]).draw();
+
+//                 // Handle "Read More" and "Read Less" functionality
+//                 const descriptionElement = dataTable.row(':last-child').nodes().to$().find('.description');
+//                 const readMoreLink = descriptionElement.find('.read-more-link');
+//                 const readLessLink = descriptionElement.find('.read-less-link');
+
+//                 readMoreLink.click(function (e) {
+//                     e.preventDefault();
+//                     descriptionElement.find('.read-more').addClass('d-none');
+//                     descriptionElement.find('.read-less').removeClass('d-none');
+//                 });
+
+//                 readLessLink.click(function (e) {
+//                     e.preventDefault();
+//                     descriptionElement.find('.read-more').removeClass('d-none');
+//                     descriptionElement.find('.read-less').addClass('d-none');
+//                 });
+//             });
+//         },
+//         error: function (error) {
+//             hideLoader(); // Hide the loader on error
+//             $('#errorMessage').text('Error loading products.');
+//             console.error(error);
+//         }
+//     });
+// }
+
+
 function loadProducts() {
     showLoader(); // Show the loader while loading products
     const token = localStorage.getItem("admin_token");
+
     // Initialize DataTable
     const dataTable = $('#productTable').DataTable();
 
@@ -47,7 +136,9 @@ function loadProducts() {
             Authorization: `Bearer ${token}`,
         },
         success: function (data) {
+            
             hideLoader(); // Hide the loader on success
+
             // Clear existing rows
             dataTable.clear();
 
@@ -67,47 +158,43 @@ function loadProducts() {
 
                 // Generate the image HTML or "No Image" text accordingly
                 const imageHtml = hasImage
-                    ? `<img src="${product.product_image_url}" alt="${product.product_name}" class="rounded-circle" width="50" height="50">`
+                    ? `<img src="${product.product_image_url}" alt="product image" class="rounded-circle" width="50" height="50">`
                     : "No Image";
 
-                let descriptionHtml = product.product_description;
+                // Truncate product name after 10 words
+                let truncatedName = product.product_name.split(' ').slice(0, 10).join(' ');
 
-                // Check if the description has more than 5 words
-                const words = descriptionHtml.split(' ');
-                if (words.length > 5) {
-                    const truncatedDescription = words.slice(0, 5).join(' ');
-                    descriptionHtml = `
-                        <div class="description">
-                            <span>${truncatedDescription}</span>
-                            <span class="read-more">...<a href="#" class="read-more-link">Read More</a></span>
-                            <span class="read-less d-none">${product.product_description} <a href="#" class="read-less-link">Read Less</a></span>
-                        </div>
+                // Check if there are more than 10 words in the name
+                if (product.product_name.split(' ').length > 10) {
+                    // If more than 10 words, add Read More and Read Less
+                    truncatedName += `
+                        <span class="read-more">...<a href="#" class="read-more-link">Read More</a></span>
+                        <span class="read-less d-none">${product.product_name} <a href="#" class="read-less-link">Read Less</a></span>
                     `;
                 }
 
                 dataTable.row.add([
                     imageHtml,
-                    product.product_name,
-                    descriptionHtml,
+                    truncatedName,
                     product.product_price,
                     buttonsHtml
                 ]).draw();
 
-                // Handle "Read More" and "Read Less" functionality
-                const descriptionElement = dataTable.row(':last-child').nodes().to$().find('.description');
-                const readMoreLink = descriptionElement.find('.read-more-link');
-                const readLessLink = descriptionElement.find('.read-less-link');
+                // Handle "Read More" and "Read Less" functionality for product name
+                const nameElement = dataTable.row(':last-child').nodes().to$().find('td:eq(1)');
+                const readMoreLink = nameElement.find('.read-more-link');
+                const readLessLink = nameElement.find('.read-less-link');
 
                 readMoreLink.click(function (e) {
                     e.preventDefault();
-                    descriptionElement.find('.read-more').addClass('d-none');
-                    descriptionElement.find('.read-less').removeClass('d-none');
+                    nameElement.find('.read-more').addClass('d-none');
+                    nameElement.find('.read-less').removeClass('d-none');
                 });
 
                 readLessLink.click(function (e) {
                     e.preventDefault();
-                    descriptionElement.find('.read-more').removeClass('d-none');
-                    descriptionElement.find('.read-less').addClass('d-none');
+                    nameElement.find('.read-more').removeClass('d-none');
+                    nameElement.find('.read-less').addClass('d-none');
                 });
             });
         },
@@ -118,6 +205,8 @@ function loadProducts() {
         }
     });
 }
+
+
 
 // Load products when the page loads
 loadProducts();
@@ -171,7 +260,6 @@ $('#productTable tbody').on('click', '.edit-product', function () {
             // Pre-fill the modal fields with fetched product details
             $('#editProductId').val(product.product_id);
             $('#editProductName').val(product.product_name);
-            $('#editProductDescription').val(product.product_description);
             $('#editProductPrice').val(product.product_price);
             // Set the image preview
             $('#editProductImagePreview').attr('src', product.product_image_url);
@@ -227,6 +315,56 @@ $('#addProductBtn').click(function () {
 });
 
 // Handle the form submission to add a product
+// $('#addProductForm').submit(function (event) {
+//     event.preventDefault();
+
+//     const formData = new FormData(this);
+//     const token = localStorage.getItem("admin_token");
+
+//     showLoader(); // Show loader during the API request
+
+//     $.ajax({
+//         url: `${baseurl}/api/admin/add-product`,
+//         method: 'POST',
+//         headers: {
+//             Authorization: `Bearer ${token}`,
+//         },
+//         data: formData,
+//         contentType: false,
+//         processData: false,
+//         success: function () {
+//             hideLoader(); // Hide loader on success
+//             $('#addProductModal').modal('hide');
+//             // Clear the form fields
+//             $('#addProductForm')[0].reset();
+//             // Reload the products to update the DataTable
+//             loadProducts();
+//             showMessageModal('Product added successfully!', false);
+//         },
+//         error: function (error) {
+//             hideLoader(); // Hide loader on error
+//             $('#addProductModal').modal('hide');
+//             $('#errorMessage').text('Error adding the product.');
+//             console.error(error);
+//             showMessageModal('Error adding the product. Please try again.', true);
+//         }
+//     });
+
+    
+// });
+
+
+$('#productImage').change(function () {
+    const input = this;
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            $('#imagePreview').attr('src', e.target.result).show();
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+});
+
 $('#addProductForm').submit(function (event) {
     event.preventDefault();
 
@@ -247,8 +385,9 @@ $('#addProductForm').submit(function (event) {
         success: function () {
             hideLoader(); // Hide loader on success
             $('#addProductModal').modal('hide');
-            // Clear the form fields
+            // Clear the form fields and reset image preview
             $('#addProductForm')[0].reset();
+            $('#imagePreview').attr('src', '').hide();
             // Reload the products to update the DataTable
             loadProducts();
             showMessageModal('Product added successfully!', false);
@@ -262,3 +401,4 @@ $('#addProductForm').submit(function (event) {
         }
     });
 });
+

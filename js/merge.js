@@ -17,19 +17,19 @@ $(document).ready(function () {
     }
 
     // Function to add "Read More" and "Read Less" to descriptions
-    function addReadMoreAndLess(description) {
-        const words = description.split(' ');
+    function addReadMoreAndLess(name) {
+        const words = name.split(' ');
         if (words.length > 5) {
-            const truncatedDescription = words.slice(0, 5).join(' ');
+            const truncatedName = words.slice(0, 5).join(' ');
             return `
                 <div class="description">
-                    <span>${truncatedDescription}</span>
+                    <span>${truncatedName}</span>
                     <span class="read-more">...<a href="#" class="read-more-link">Read More</a></span>
-                    <span class="read-less d-none">${description} <a href="#" class="read-less-link">Read Less</a></span>
+                    <span class="read-less d-none">${name} <a href="#" class="read-less-link">Read Less</a></span>
                 </div>
             `;
         }
-        return description;
+        return name;
     }
 
 
@@ -68,34 +68,34 @@ function loadProducts() {
 
                 // Generate the image HTML or "No Image" text accordingly
                 const imageHtml = hasImage
-                    ? `<img src="${product.product_image_url}" alt="${product.product_name}" class="rounded-circle" width="50" height="50">`
+                    ? `<img src="${product.product_image_url}" alt="product img" class="rounded-circle" width="50" height="50">`
                     : "No Image";
 
-                const descriptionHtml = addReadMoreAndLess(product.product_description);
+                const nameHtml = addReadMoreAndLess(product.product_name);
 
                 dataTable.row.add([
+                    product.product_id,
                     imageHtml,
-                    product.product_name,
-                    descriptionHtml,
+                    nameHtml,
                     product.product_price,
                     buttonsHtml
                 ]).draw();
 
                 // Handle "Read More" and "Read Less" functionality
-                const descriptionElement = dataTable.row(':last-child').nodes().to$().find('.description');
-                const readMoreLink = descriptionElement.find('.read-more-link');
-                const readLessLink = descriptionElement.find('.read-less-link');
+                const nameElement = dataTable.row(':last-child').nodes().to$().find('.description');
+                const readMoreLink = nameElement.find('.read-more-link');
+                const readLessLink = nameElement.find('.read-less-link');
 
                 readMoreLink.click(function (e) {
                     e.preventDefault();
-                    descriptionElement.find('.read-more').addClass('d-none');
-                    descriptionElement.find('.read-less').removeClass('d-none');
+                    nameElement.find('.read-more').addClass('d-none');
+                    nameElement.find('.read-less').removeClass('d-none');
                 });
 
                 readLessLink.click(function (e) {
                     e.preventDefault();
-                    descriptionElement.find('.read-more').removeClass('d-none');
-                    descriptionElement.find('.read-less').addClass('d-none');
+                    nameElement.find('.read-more').removeClass('d-none');
+                    nameElement.find('.read-less').addClass('d-none');
                 });
             });
         },

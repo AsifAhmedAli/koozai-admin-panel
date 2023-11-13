@@ -59,12 +59,14 @@ $(document).ready(function () {
                 render: function (data, type, row) {
                     const depositId = data.id;
                     const status = data.status;
-                    const isDisabled = status === "completed" ? "disabled" : "";
+                    const isDisabled = status === "completed" || status === "rejected" ? "disabled" : "";
                     const buttonText = status === "completed" ? "Approved" : "Approve";
+                    const RejectbuttonText = status === "completed" ? "Rejected" : "Reject";
                     const userId = data.user_id; // Get the userId from the clicked user
 
-                    return `<div class="d-flex justify-content-center">
+                    return `<div class="d-flex justify-content-between">
                                 <button class="btn btn-success approve-btn" data-id="${depositId}" ${isDisabled}>${buttonText}</button>
+                                <button class="btn btn-success ml-2 reject-btn" data-id="${depositId}" ${isDisabled}>${RejectbuttonText}</button>
                                 <button class="btn btn-primary ml-2 deposit-history-btn data-toggle="tooltip" data-placement="left" title="Deposit History"" data-user-id="${userId}">History</button>
                               </div>`;
                 },
@@ -167,6 +169,68 @@ $(document).ready(function () {
                 });
             });
     });
+
+  // Add click event listener for rejection button
+  $("#depositRequestsTable").on("click", ".reject-btn", function () {
+    const depositId = $(this).data("id");
+    const rejectButton = $(this);
+
+    // Show the reject confirmation modal
+    $("#rejectModal").modal("show");
+
+    // Handle confirm rejection button click
+    $("#confirmReject").off("click").on("click", function () {
+        // Show loader while processing
+        $("#loadingSpinner").removeClass("d-none");
+
+        $.ajax({
+            url: `${baseurl}/api/admin/reject-deposit-request/${depositId}`,
+            method: "PUT",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            dataType: "json",
+            success: function (response) {
+                // console.log(response);
+
+                if (response && response.message === "Deposit request rejected successfully") {
+                    // Update the DataTable row
+                    const row = table.row(rejectButton.closest("tr"));
+
+                    if (row && row.data()) {
+                        // Update the status and disable the button
+                        row.data().status = "rejected";
+                        row.invalidate().draw(false);
+                        rejectButton.attr("disabled", "disabled").text("Rejected");
+
+                        // Show success message
+                        showMessageModal("Deposit request has been rejected.", false);
+
+                        // Close the reject modal
+                        $("#rejectModal").modal("hide");
+                    }
+                } else {
+                    showMessageModal(response && response.message ? response.message : "Error rejecting deposit request. Please try again.", true);
+                }
+            },
+            error: function (error) {
+                // Show error message
+                showMessageModal(error.responseJSON && error.responseJSON.error ? error.responseJSON.error : "An error occurred. Please try again.", true);
+            },
+            complete: function () {
+                // Hide the loader when processing is complete
+                $("#loadingSpinner").addClass("d-none");
+            },
+        });
+    });
+});
+
+
+
+
+    
+
+    
 
     // Add click event listener for "Deposit History" button
     $("#depositRequestsTable").on("click", ".deposit-history-btn", function () {
@@ -284,3 +348,5 @@ $(document).ready(function () {
 
 
 });
+
+
