@@ -31,6 +31,54 @@ $(document).ready(function () {
         $(spinnerId).addClass("d-none");
     }
 
+
+     // Handle "Set Working Hours" button click
+     $("#setWorkingHoursButton").click(function () {
+        // Open the modal
+        $("#setWorkingHoursModal").modal("show");
+      });
+
+      function clearModalValues() {
+        $('#startTimePicker').val('');
+        $('#endTimePicker').val('');
+      }
+  
+  
+      // Handle "Save Working Hours" button click
+      $("#saveWorkingHours").on('click', function () {
+        const startTime = $('#startTimePicker').val();
+        const endTime = $('#endTimePicker').val();
+  
+        // Validate input (add more validation as needed)
+        if (!startTime || !endTime) {
+          showMessageModal("Please enter both start time and end time.", true);
+          return;
+        }
+  
+        // Make an AJAX call to set working hours
+        $.ajax({
+          url: `${baseurl}/api/admin/set-working-hours`,
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+        },
+          data: JSON.stringify({ start_time: startTime, end_time: endTime }),
+          contentType: "application/json",
+          dataType: "json",
+          success: function (response) {
+            
+            // console.log(response)
+            showMessageModal(response.message, false);
+            $("#setWorkingHoursModal").modal("hide");
+            clearModalValues(); 
+  
+          },
+          error: function (error) {
+            showMessageModal(error.responseJSON.error, true);
+          },
+        });
+      });
+
     const getAllUsersTable = $("#getAllUsersTable").DataTable({
         columns: [
             { data: "id" },
@@ -48,7 +96,8 @@ $(document).ready(function () {
                 render: function (data, type, row) {
                     const userId = data.id;
                     return `<div class='d-flex justify-content-between'>
-                        <button class="btn btn-primary reset-password-button mx-2 btn-sm" data-user-id="${userId}" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">Reset Password</button>
+                        <button class="btn btn-primary reset-password-button mx-2 btn-sm" data-user-id="${userId}" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">Reset Forgot Password</button>
+                        <button class="btn btn-primary reset-withdraw-password-button mx-2 btn-sm" data-user-id="${userId}" data-bs-toggle="modal" data-bs-target="#resetWithdrawPasswordModal">Reset Withdraw Password</button>
                         <button class="btn btn-success deposit-button btn-sm" data-user-id="${userId}" data-bs-toggle="modal" data-bs-target="#depositModal">Make Deposit</button>
                         <button class="btn btn-warning edit-wallet-button mx-2 btn-sm" data-user-id="${userId}" data-bs-toggle="modal" data-bs-target="#editWalletModal">Edit Wallet</button>
                         <button class="btn btn-danger update-level-button btn-sm" data-user-id="${userId}" data-bs-toggle="modal" data-bs-target="#updateLevelModal">Update Level</button>
@@ -144,6 +193,45 @@ $(document).ready(function () {
                         $("#resetPasswordModal").modal("hide");
                         $("#newPassword").val("");
                         $("#confirmNewPassword").val("");
+                    },
+                    error: function (error) {
+                        hideLoadingSpinner("#resetPasswordLoadingSpinner");
+                        showMessageModal(error.responseJSON.error, true);
+                    },
+                });
+            } else {
+                showMessageModal("New password and confirm password do not match", true);
+            }
+        });
+    });
+
+
+    // Handle "Reset withdraw Password" button click and form submission
+    $("#getAllUsersTable").on("click", ".reset-withdraw-password-button", function () {
+        const userId = $(this).data("user-id");
+        $("#resetWithdrawPasswordModal").modal("show");
+
+        $("#resetWithdrawPasswordButton").off("click").on("click", function () {
+            const newPassword = $("#newWithdrawPassword").val();
+            const confirmNewPassword = $("#confirmNewWithdrawPassword").val();
+
+            if (newPassword === confirmNewPassword) {
+                showLoadingSpinner("#resetPasswordLoadingSpinner");
+                $.ajax({
+                    url: `${baseurl}/api/admin/reset-withdraw-password`,
+                    method: "PUT",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                    data: JSON.stringify({ userId, newPassword, confirmNewPassword }),
+                    contentType: "application/json",
+                    dataType: "json",
+                    success: function (response) {
+                        hideLoadingSpinner("#resetPasswordLoadingSpinner");
+                        showMessageModal(response.message, false);
+                        $("#resetWithdrawPasswordModal").modal("hide");
+                        $("#newWithdrawPassword").val("");
+                        $("#confirmNewWithdrawPassword").val("");
                     },
                     error: function (error) {
                         hideLoadingSpinner("#resetPasswordLoadingSpinner");

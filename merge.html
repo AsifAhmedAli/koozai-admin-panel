@@ -1,246 +1,334 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <title>Product Management</title>
 
     <!-- Custom fonts for this template -->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+      href="vendor/fontawesome-free/css/all.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet"
+    />
 
     <!-- Custom styles for this template -->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link href="css/sb-admin-2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
 
     <!-- Custom styles for this page -->
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
-</head>
+    <link
+      href="vendor/datatables/dataTables.bootstrap4.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
+      rel="stylesheet"
+    />
+  </head>
 
+  <!-- loading spinner -->
 
-
- <!-- loading spinner -->
-
-<body id="page-top">
-
+  <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
+      <!-- Sidebar -->
+      <ul
+        class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+        id="accordionSidebar"
+      >
+        <!-- Sidebar - Brand -->
+        <a
+          class="sidebar-brand d-flex align-items-center justify-content-center"
+          href="index.html"
+        >
+          <div class="sidebar-brand-icon rotate-n-15">Koozai</div>
+        </a>
 
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    Koozai
-                </div>
-               
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-
-        
-            <li class="nav-item active">
-              <a class="nav-link" href="index.html">
-                  <!-- <i class="fas fa-fw fa-table"></i> -->
-                  <span>Deposit Requests</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="withdraw_requests.html">
-                <!-- <i class="fas fa-fw fa-table"></i> -->
-                <span>Withdraw Requests</span></a>
-        </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="all_users.html">
-                <!-- <i class="fas fa-fw fa-table"></i> -->
-                <span>All Users</span></a>
-        </li>
-          
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0" />
 
         <li class="nav-item active">
-            <a class="nav-link" href="products.html">
-                <!-- <i class="fas fa-fw fa-table"></i> -->
-                <span>Products</span></a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="events.html">
-                <!-- <i class="fas fa-fw fa-table"></i> -->
-                <span>Events Management</span></a>
+          <a class="nav-link" href="index.html">
+            <!-- <i class="fas fa-fw fa-table"></i> -->
+            <span>Deposit Requests</span></a
+          >
         </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="other_actions.html">
-                <!-- <i class="fas fa-fw fa-table"></i> -->
-                <span>Other Actions</span></a>
+        <li class="nav-item active">
+          <a class="nav-link" href="withdraw_requests.html">
+            <!-- <i class="fas fa-fw fa-table"></i> -->
+            <span>Withdraw Requests</span></a
+          >
         </li>
-
-        <li class="nav-item active logout"  data-toggle="modal" data-target="#confirmLogoutModal">
-            <a class="nav-link">
-                <!-- <i class="fas fa-fw fa-table"></i> -->
-                <span>Logout</span></a>
+        <li class="nav-item active">
+          <a class="nav-link" href="all_users.html">
+            <!-- <i class="fas fa-fw fa-table"></i> -->
+            <span>All Users</span></a
+          >
         </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
+        <li class="nav-item active">
+          <a class="nav-link" href="products.html">
+            <!-- <i class="fas fa-fw fa-table"></i> -->
+            <span>Products</span></a
+          >
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="events.html">
+            <!-- <i class="fas fa-fw fa-table"></i> -->
+            <span>Events Management</span></a
+          >
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="certificate.html">
+            <!-- <i class="fas fa-fw fa-table"></i> -->
+            <span>Certificate Management</span></a
+          >
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="other_actions.html">
+            <!-- <i class="fas fa-fw fa-table"></i> -->
+            <span>Other Actions</span></a
+          >
+        </li>
 
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        <li
+          class="nav-item active logout"
+          data-toggle="modal"
+          data-target="#confirmLogoutModal"
+        >
+          <a class="nav-link">
+            <!-- <i class="fas fa-fw fa-table"></i> -->
+            <span>Logout</span></a
+          >
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block" />
+
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+          <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+      </ul>
+      <!-- End of Sidebar -->
+
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+          <!-- End of Topbar -->
+
+          <!-- Begin Page Content -->
+          <div class="container-fluid">
+            <!-- Page Heading -->
+            <h1 class="h3 mb-2 text-gray-800 mt-3 mb-5">Products for Merge</h1>
+
+            <div class="container mt-5">
+              <!-- Product Table -->
+              <table
+                id="productTable"
+                class="table table-bordered table-striped table-responsive"
+              >
+                <thead>
+                  <tr>
+                    <th>Product ID</th>
+                    <th>Product Image</th>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Table rows will be populated dynamically by DataTables -->
+                </tbody>
+              </table>
             </div>
+          </div>
 
-        </ul>
-        <!-- End of Sidebar -->
+          <!-- /.container-fluid -->
+        </div>
+        <!-- End of Main Content -->
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
-            <div id="content">
-
-              
-                <!-- End of Topbar -->
-
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-                  <!-- Page Heading -->
-                  <h1 class="h3 mb-2 text-gray-800 mt-3 mb-5">Products for Merge</h1>
-
-                  <div class="container mt-5">
-           
-                    
-                    <!-- Product Table -->
-                    <table id="productTable" class="table table-bordered table-striped table-responsive">
-                        <thead>
-                            <tr>
-                                <th>Product ID</th>
-                                <th>Product Image</th>
-                                <th>Product Name</th>
-                                <th>Price</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Table rows will be populated dynamically by DataTables -->
-                        </tbody>
-                    </table>
-                </div>
-
-                  
-                
-              </div>
-              
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <!-- <footer class="sticky-footer bg-white">
+        <!-- Footer -->
+        <!-- <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
                         <span>Copyright &copy; Your Website 2020</span>
                     </div>
                 </div>
             </footer> -->
-            <!-- End of Footer -->
-
-        </div>
-        <!-- End of Content Wrapper -->
-
+        <!-- End of Footer -->
+      </div>
+      <!-- End of Content Wrapper -->
     </div>
     <!-- End of Page Wrapper -->
 
-  
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-<!-- Merge Product Modal -->
-<div class="modal fade" id="mergeProductModal" tabindex="-1" role="dialog" aria-labelledby="mergeProductModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div
+      class="modal fade"
+      id="logoutModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="mergeProductModalLabel">Merge Product</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="mergeTargetInput">Enter Merge Target:</label>
-                    <input type="text" class="form-control" id="mergeTargetInput" placeholder="Enter Merge Target">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="mergeConfirmBtn">Merge</button>
-            </div>
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <button
+              class="close"
+              type="button"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Select "Logout" below if you are ready to end your current session.
+          </div>
+          <div class="modal-footer">
+            <button
+              class="btn btn-secondary"
+              type="button"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <a class="btn btn-primary" href="login.html">Logout</a>
+          </div>
         </div>
+      </div>
     </div>
-</div>
 
-
-
-<!-- Frozen Product Modal -->
-<div class="modal fade" id="addFrozenProductModal" tabindex="-1" role="dialog" aria-labelledby="addFrozenProductModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <!-- Merge Product Modal -->
+    <div
+      class="modal fade"
+      id="mergeProductModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="mergeProductModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addFrozenProductModalLabel">Merge Product</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+          <div class="modal-header">
+            <h5 class="modal-title" id="mergeProductModalLabel">
+              Merge Product
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="mergeTargetInput">Enter Merge Target:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="mergeTargetInput"
+                placeholder="Enter Merge Target"
+              />
             </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="frozenTargetInput">Enter Merge Target:</label>
-                    <input type="text" class="form-control" id="frozenTargetInput" placeholder="Enter Merge Target">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="addFrozenConfirmBtn">Merge</button>
-            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary" id="mergeConfirmBtn">
+              Merge
+            </button>
+          </div>
         </div>
+      </div>
     </div>
-</div>
 
+    <!-- Frozen Product Modal -->
+    <div
+      class="modal fade"
+      id="addFrozenProductModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="addFrozenProductModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addFrozenProductModalLabel">
+              Merge Product
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="frozenTargetInput">Enter Merge Target:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="frozenTargetInput"
+                placeholder="Enter Merge Target"
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="addFrozenConfirmBtn"
+            >
+              Merge
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-
-
-     <!-- model for success and error messages -->
-     <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true" >
+    <!-- model for success and error messages -->
+    <div
+      class="modal fade"
+      id="messageModal"
+      tabindex="-1"
+      aria-labelledby="messageModalLabel"
+      aria-hidden="true"
+    >
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content text-white w-auto mx-auto">
           <div class="modal-body show_message bg-dark text-center">
@@ -252,30 +340,53 @@
 
     <!-- logout model -->
 
-    <div class="modal fade" id="confirmLogoutModal" tabindex="-1" role="dialog" aria-labelledby="confirmLogoutModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmLogoutModalLabel">Confirm Logout</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Are you sure you want to log out?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger" id="confirmLogoutButton">Log Out</button>
-                </div>
-            </div>
+    <div
+      class="modal fade"
+      id="confirmLogoutModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="confirmLogoutModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="confirmLogoutModalLabel">
+              Confirm Logout
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">Are you sure you want to log out?</div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger"
+              id="confirmLogoutButton"
+            >
+              Log Out
+            </button>
+          </div>
         </div>
+      </div>
     </div>
-    
 
     <div id="loadingSpinner" class="loader-container d-none">
-        <span class="loader"></span>
-        </div>
+      <span class="loader"></span>
+    </div>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -294,7 +405,9 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-    <div class="loading" id="loader1" style="visibility: hidden;">Loading&#8230;</div>
+    <div class="loading" id="loader1" style="visibility: hidden">
+      Loading&#8230;
+    </div>
     <!-- base url file -->
     <script src="./js/all.js"></script>
     <script src="./js/index.js"></script>
@@ -302,18 +415,5 @@
     <script src="./js/merge.js"></script>
     <script src="./js/logout.js"></script>
     <!-- <script src="./js/products.js"></script> -->
-    
-   
-
-
-  
-   
-
-
-
-
-  
-
-</body>
-
+  </body>
 </html>

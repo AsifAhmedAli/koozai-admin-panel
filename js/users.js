@@ -37,6 +37,7 @@ $(document).ready(function () {
             success: function (response) {
                 // Populate user data into HTML elements
                 $('#userId').text(response.id);
+                $('#userIpAddress').text(response.user_ip);
                 $('#userName').text(response.username);
                 $('#userPhone').text(response.phone);
                 $('#userBalance').text(response.balance);
@@ -48,6 +49,7 @@ $(document).ready(function () {
                 $('#dataCompleted').text(response.data_completed);
                 $('#referralCode').text(response.referral_code);
                 $('#referredBy').text(response.referred_by);
+                $('#referredByName').text(response.referring_user_name);
 
                 // Update profile picture source with SVG icon if response.profile_pic is null
                 const profilePicElement = $('#userProfilePic');
@@ -71,10 +73,12 @@ $(document).ready(function () {
     const table = $('#userProfilesTable').DataTable({
         columns: [
             { data: 'id' },
+            { data: 'user_ip' },
             { data: 'username' },
             { data: 'phone' },
             { data: 'level_name' },
             { data: 'balance' },
+            { data: 'referring_user_name' },
             {
                 // "Merge" column with a link to merge.html
                 data: null,
