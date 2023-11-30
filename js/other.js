@@ -96,7 +96,7 @@ $(document).ready(function () {
                 render: function (data, type, row) {
                     const userId = data.id;
                     return `<div class='d-flex justify-content-between'>
-                        <button class="btn btn-primary reset-password-button mx-2 btn-sm" data-user-id="${userId}" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">Reset Forgot Password</button>
+                        <button class="btn btn-primary reset-password-button mx-2 btn-sm" data-user-id="${userId}" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">Reset Login Password</button>
                         <button class="btn btn-primary reset-withdraw-password-button mx-2 btn-sm" data-user-id="${userId}" data-bs-toggle="modal" data-bs-target="#resetWithdrawPasswordModal">Reset Withdraw Password</button>
                         <button class="btn btn-success deposit-button btn-sm" data-user-id="${userId}" data-bs-toggle="modal" data-bs-target="#depositModal">Make Deposit</button>
                         <button class="btn btn-warning edit-wallet-button mx-2 btn-sm" data-user-id="${userId}" data-bs-toggle="modal" data-bs-target="#editWalletModal">Edit Wallet</button>

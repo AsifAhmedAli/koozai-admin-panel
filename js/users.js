@@ -116,7 +116,7 @@ $(document).ready(function () {
                 }
             }
         ],
-        order: [[0, 'asc']], // Sort by the first column (ID) in ascending order
+        order: [[0, 'desc']], // Sort by the first column (ID) in ascending order
     });
 
     // Handle click events on the "Action" buttons
